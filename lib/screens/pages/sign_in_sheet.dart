@@ -1,3 +1,4 @@
+import 'package:beyoundthecall/services/database.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:beyoundthecall/utils/controllers.dart';
 import 'package:beyoundthecall/widgets/buttons.dart';
@@ -12,6 +13,8 @@ class SignInSheet extends StatefulWidget {
 }
 
 class _SignInSheetState extends State<SignInSheet> {
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,16 +60,43 @@ class _SignInSheetState extends State<SignInSheet> {
               ),
             ),
             Center(
-              child: WonsButton(
-                onPressed: () {},
-                text: "Sign In",
-                height: 40,
-                width: 327,
-              ),
+              child: _isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : WonsButton(
+                      onPressed: createCustomer,
+                      text: "Sign In",
+                      height: 40,
+                      width: 327,
+                    ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  createCustomer() async {
+    setState(() {
+      _isLoading = true;
+    });
+    if (staffEmailController.text.isEmpty ||
+        staffMemebersNameController.text.isEmpty ||
+        staffAddressController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Name, Email and Address and Photo is Required")));
+    }
+    String rse = await DatabaseMethods().createCustomer(
+      name: customerNameController.text,
+      email: customermailController.text,
+      phoneNumber: customerPhoneController.text,
+    );
+
+    print(rse);
+    setState(() {
+      _isLoading = false;
+    });
+    if (rse != 'sucess') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(rse)));
+    } else {}
   }
 }

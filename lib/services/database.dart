@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:beyoundthecall/models/customer_models.dart';
 import 'package:beyoundthecall/models/staff_models.dart';
 import 'package:beyoundthecall/services/storage_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,6 +31,35 @@ class DatabaseMethods {
             photoURL: photoURL);
         await FirebaseFirestore.instance
             .collection("staff")
+            .doc(uuid)
+            .set(userModel.toJson());
+        res = 'sucess';
+      }
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  Future<String> createCustomer({
+    required String name,
+    required String email,
+    required String phoneNumber,
+  }) async {
+    String res = 'Some error occured';
+    try {
+      if (email.isNotEmpty || name.isNotEmpty) {
+        var uuid = Uuid().v4();
+        //Add User to the database with modal
+        CustomerModel userModel = CustomerModel(
+          customerEmail: email,
+          customerName: name,
+          customerPhone: phoneNumber,
+          uuid: uuid,
+          uid: FirebaseAuth.instance.currentUser!.uid,
+        );
+        await FirebaseFirestore.instance
+            .collection("customers")
             .doc(uuid)
             .set(userModel.toJson());
         res = 'sucess';
