@@ -36,6 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutterfire_cli: ^0.2.7
+  image_picker: ^1.0.4
   loading_animation_widget: ^1.2.0+4
   provider: ^6.0.5
   uuid: ^4.1.0

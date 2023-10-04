@@ -1,9 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:beyoundthecall/screens/main_dashboard.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:beyoundthecall/utils/controllers.dart';
+import 'package:beyoundthecall/utils/pick_image_utils.dart';
 import 'package:beyoundthecall/widgets/buttons.dart';
 import 'package:beyoundthecall/widgets/text_form_field_input_field_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddStaffMembers extends StatefulWidget {
   const AddStaffMembers({super.key});
@@ -13,6 +17,9 @@ class AddStaffMembers extends StatefulWidget {
 }
 
 class _AddStaffMembersState extends State<AddStaffMembers> {
+  Uint8List? image;
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +35,16 @@ class _AddStaffMembersState extends State<AddStaffMembers> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset(
-              "assets/add user icon.png",
-              height: 200,
-              width: 200,
-            ),
+            image != null
+                ? CircleAvatar(radius: 59, backgroundImage: MemoryImage(image!))
+                : InkWell(
+                    onTap: () => selectImage(),
+                    child: Image.asset(
+                      "assets/add user icon.png",
+                      height: 200,
+                      width: 200,
+                    ),
+                  ),
             Container(
               margin: const EdgeInsets.only(left: 8, right: 8),
               child: TextFormInputFormField(
@@ -71,19 +83,28 @@ class _AddStaffMembersState extends State<AddStaffMembers> {
               ),
             ),
             Center(
-              child: WonsButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (builder) => MainScreen()));
-                },
-                text: "Save",
-                height: 40,
-                width: 327,
-              ),
+              child: _isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : WonsButton(
+                      onPressed: createStaffAccount,
+                      text: "Save",
+                      height: 40,
+                      width: 327,
+                    ),
             ),
           ],
         ),
       ),
     );
   }
+  //Functions
+
+  selectImage() async {
+    Uint8List ui = await pickImage(ImageSource.gallery);
+    setState(() {
+      image = ui;
+    });
+  }
+
+  void createStaffAccount() {}
 }
