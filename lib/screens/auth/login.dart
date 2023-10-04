@@ -1,9 +1,12 @@
-import 'package:beyoundthecall/screens/main_dashboard.dart';
+import 'package:beyoundthecall/provider/ciruclar_provider.dart';
+import 'package:beyoundthecall/services/auth.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:beyoundthecall/utils/controllers.dart';
 import 'package:beyoundthecall/widgets/buttons.dart';
+import 'package:beyoundthecall/widgets/custom_dialog_widget.dart';
 import 'package:beyoundthecall/widgets/text_form_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -55,7 +58,7 @@ class _LoginState extends State<Login> {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 14, right: 14),
             child: Text(
-              "Password",
+              "password",
               style: TextStyle(color: textColor),
             ),
           ),
@@ -72,8 +75,38 @@ class _LoginState extends State<Login> {
           Center(
             child: WonsButton(
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (builder) => MainScreen()));
+                if (emailController.text.isEmpty &&
+                    passController.text.isEmpty) {
+                  Customdialog()
+                      .showInSnackBar("Both Fields are Required", context);
+                } else if (emailController.text.isEmpty) {
+                  Customdialog()
+                      .showInSnackBar("Email Field are Required", context);
+                } else if (passController.text.isEmpty) {
+                  Customdialog()
+                      .showInSnackBar("passrword Field are Required", context);
+                } else if (passController.text.length < 5) {
+                  Customdialog()
+                      .showInSnackBar("password minimum 5 charaters", context);
+                } else if (emailController.text != 'admin@gmail.com' &&
+                    passController.text != '123456') {
+                  Customdialog()
+                      .showInSnackBar("Email and password is wrong", context);
+                } else if (emailController.text == 'admin@gmail.com' &&
+                    passController.text == '123456') {
+                  Customdialog.showDialogBox(context);
+
+                  Provider.of<CircularProgressProvider>(context, listen: false)
+                      .setValue(true);
+                  Future.delayed(Duration(seconds: 0)).then((value) {
+                    Database().login(
+                        emailController.text, passController.text, context);
+                  });
+                } else if (emailController.text != 'admin@gmail.com') {
+                  Customdialog().showInSnackBar("Email is wrong", context);
+                } else if (passController != '123456') {
+                  Customdialog().showInSnackBar("password is wrong", context);
+                }
               },
               text: "Login",
               height: 40,
