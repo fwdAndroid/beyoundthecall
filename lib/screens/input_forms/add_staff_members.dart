@@ -1,6 +1,5 @@
 import 'dart:typed_data';
-
-import 'package:beyoundthecall/screens/main_dashboard.dart';
+import 'package:beyoundthecall/services/database.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:beyoundthecall/utils/controllers.dart';
 import 'package:beyoundthecall/utils/pick_image_utils.dart';
@@ -60,7 +59,7 @@ class _AddStaffMembersState extends State<AddStaffMembers> {
                 suIcon: Icon(Icons.phone),
                 controller: staffPhoneController,
                 hintText: "Staff Phone Number",
-                textInputType: TextInputType.name,
+                textInputType: TextInputType.number,
               ),
             ),
             Container(
@@ -106,5 +105,29 @@ class _AddStaffMembersState extends State<AddStaffMembers> {
     });
   }
 
-  void createStaffAccount() {}
+  createStaffAccount() async {
+    setState(() {
+      _isLoading = true;
+    });
+    if (staffEmailController.text.isEmpty ||
+        staffMemebersNameController.text.isEmpty ||
+        staffAddressController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Name, Email and Address and Photo is Required")));
+    }
+    String rse = await DatabaseMethods().createStaff(
+        name: staffMemebersNameController.text,
+        email: staffEmailController.text,
+        phoneNumber: staffPhoneController.text,
+        address: staffAddressController.text,
+        file: image!);
+
+    print(rse);
+    setState(() {
+      _isLoading = false;
+    });
+    if (rse != 'sucess') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(rse)));
+    } else {}
+  }
 }
