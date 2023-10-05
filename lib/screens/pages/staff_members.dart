@@ -1,4 +1,5 @@
 import 'package:beyoundthecall/screens/input_forms/add_staff_members.dart';
+import 'package:beyoundthecall/screens/pages/widgets/staff_grid_widget.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,17 @@ class _StaffMembersState extends State<StaffMembers> {
         child: Icon(
           Icons.add,
           color: iconColor,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            StaffGridWidget()
+          ],
         ),
       ),
     );
