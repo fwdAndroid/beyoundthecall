@@ -27,7 +27,7 @@ class DatabaseMethods {
             staffAddress: address,
             staffPhone: phoneNumber,
             uuid: uuid,
-            uid: FirebaseAuth.instance.currentUser!.uid,
+            // uid: FirebaseAuth.instance.currentUser!.uid,
             photoURL: photoURL);
         await FirebaseFirestore.instance
             .collection("staff")
@@ -36,7 +36,9 @@ class DatabaseMethods {
         res = 'sucess';
       }
     } catch (e) {
-      res = e.toString();
+      if (e is FirebaseException) {
+        print("Firebase Firestore Error: ${e.message}");
+      } else {}
     }
     return res;
   }

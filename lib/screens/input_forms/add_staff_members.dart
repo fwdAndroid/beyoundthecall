@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:beyoundthecall/screens/main_dashboard.dart';
 import 'package:beyoundthecall/services/database.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:beyoundthecall/utils/controllers.dart';
@@ -128,6 +129,10 @@ class _AddStaffMembersState extends State<AddStaffMembers> {
     });
     if (rse != 'sucess') {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(rse)));
-    } else {}
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(rse)));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (builder) => MainScreen()));
+    }
   }
 }

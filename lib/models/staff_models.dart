@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StaffModel {
-  String uid;
+  // String uid;
   String staffName;
   String staffPhone;
   String staffEmail;
@@ -10,7 +10,8 @@ class StaffModel {
   String uuid;
 
   StaffModel(
-      {required this.uid,
+      {
+      // required this.uid,
       required this.staffName,
       required this.staffPhone,
       required this.photoURL,
@@ -21,7 +22,7 @@ class StaffModel {
   ///Converting OBject into Json Object
   Map<String, dynamic> toJson() => {
         'staffEmail': staffEmail,
-        'uid': uid,
+        // 'uid': uid,
         'staffName': staffName,
         'staffPhone': staffPhone,
         'uuid': uuid,
@@ -35,7 +36,7 @@ class StaffModel {
 
     return StaffModel(
       staffEmail: snapshot['staffEmail'],
-      uid: snapshot['uid'],
+      // uid: snapshot['uid'],
       staffName: snapshot['staffName'],
       photoURL: snapshot['photoURL'],
       staffPhone: snapshot['staffPhone'],
