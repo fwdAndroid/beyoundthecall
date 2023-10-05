@@ -1,3 +1,4 @@
+import 'package:beyoundthecall/screens/main_dashboard.dart';
 import 'package:beyoundthecall/services/database.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:beyoundthecall/utils/controllers.dart';
@@ -46,7 +47,7 @@ class _SignInSheetState extends State<SignInSheet> {
                 suIcon: Icon(Icons.phone),
                 controller: customerPhoneController,
                 hintText: "Customer Phone Number",
-                textInputType: TextInputType.name,
+                textInputType: TextInputType.number,
               ),
             ),
             Container(
@@ -56,7 +57,7 @@ class _SignInSheetState extends State<SignInSheet> {
                 suIcon: Icon(Icons.email),
                 controller: customermailController,
                 hintText: "Customer Email (Optional)",
-                textInputType: TextInputType.name,
+                textInputType: TextInputType.emailAddress,
               ),
             ),
             Center(
@@ -97,6 +98,9 @@ class _SignInSheetState extends State<SignInSheet> {
     });
     if (rse != 'sucess') {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(rse)));
-    } else {}
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (builder) => MainScreen()));
+    }
   }
 }

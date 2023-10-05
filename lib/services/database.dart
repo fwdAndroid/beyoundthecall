@@ -58,7 +58,7 @@ class DatabaseMethods {
           customerName: name,
           customerPhone: phoneNumber,
           uuid: uuid,
-          uid: FirebaseAuth.instance.currentUser!.uid,
+          // uid: FirebaseAuth.instance.currentUser!.uid,
         );
         await FirebaseFirestore.instance
             .collection("customers")
