@@ -1,3 +1,4 @@
+import 'package:beyoundthecall/screens/customerservice/customer_service.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,10 @@ class _CustomerSectionState extends State<CustomerSection> {
       body: Column(
         children: [
           ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => CustomerService()));
+            },
             leading: Icon(
               Icons.edit_document,
               color: textColor,
