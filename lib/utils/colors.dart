@@ -10,3 +10,4 @@ final fieldtextColor = Color(0xff6C757D);
 final listColor = Color(0xff8F90A6);
 final logoutColor = Colors.red;
 final detailColor = Color(0xff5F60B9);
+final serviceColor = Color(0xff35CB95);

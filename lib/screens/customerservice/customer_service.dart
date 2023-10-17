@@ -102,7 +102,12 @@ class _CustomerServiceState extends State<CustomerService> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (builder) => ServiceRoom()));
+                                          builder: (builder) => ServiceRoom(
+                                                email: data['customerEmail'],
+                                                uuid: data['uuid'],
+                                                time: data['dateofjoin'],
+                                                name: data['customerName'],
+                                              )));
                                 },
                                 child: Text(
                                   "Enter Room",
