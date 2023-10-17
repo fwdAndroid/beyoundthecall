@@ -6,9 +6,10 @@ class CustomerModel {
   String customerPhone;
   String customerEmail;
   String uuid;
+  var dateofjoin;
 
   CustomerModel({
-    // required this.uid,
+    required this.dateofjoin,
     required this.customerName,
     required this.customerPhone,
     required this.customerEmail,
@@ -17,7 +18,7 @@ class CustomerModel {
 
   ///Converting OBject into Json Object
   Map<String, dynamic> toJson() => {
-        // 'uid': uid,
+        'dateofjoin': dateofjoin,
         'customerName': customerName,
         'customerPhone': customerPhone,
         'uuid': uuid,
@@ -29,7 +30,7 @@ class CustomerModel {
     var snapshot = snaps.data() as Map<String, dynamic>;
 
     return CustomerModel(
-      // uid: snapshot['uid'],
+      dateofjoin: snapshot['dateofjoin'],
       customerName: snapshot['customerName'],
       customerEmail: snapshot['customerEmail'],
       customerPhone: snapshot['customerPhone'],

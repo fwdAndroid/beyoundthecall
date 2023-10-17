@@ -54,12 +54,13 @@ class DatabaseMethods {
         var uuid = Uuid().v4();
         //Add User to the database with modal
         CustomerModel userModel = CustomerModel(
-          customerEmail: email,
-          customerName: name,
-          customerPhone: phoneNumber,
-          uuid: uuid,
-          // uid: FirebaseAuth.instance.currentUser!.uid,
-        );
+            customerEmail: email,
+            customerName: name,
+            customerPhone: phoneNumber,
+            uuid: uuid,
+            dateofjoin: FieldValue.serverTimestamp()
+            // uid: FirebaseAuth.instance.currentUser!.uid,
+            );
         await FirebaseFirestore.instance
             .collection("customers")
             .doc(uuid)
