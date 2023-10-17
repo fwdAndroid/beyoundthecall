@@ -1,3 +1,4 @@
+import 'package:beyoundthecall/screens/customer_section/customer_section.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -19,13 +20,10 @@ class _AccountState extends State<Account> {
             height: 30,
           ),
           ListTile(
-            title: Text(
-              "Joe Doe",
-              style: TextStyle(
-                  color: textColor, fontWeight: FontWeight.bold, fontSize: 22),
-            ),
-          ),
-          ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => CustomerSection()));
+            },
             title: Text(
               "Customer Analytics",
               style: TextStyle(
