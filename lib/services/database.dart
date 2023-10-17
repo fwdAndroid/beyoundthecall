@@ -54,6 +54,7 @@ class DatabaseMethods {
         var uuid = Uuid().v4();
         //Add User to the database with modal
         CustomerModel userModel = CustomerModel(
+            numberofvisits: 0,
             customerEmail: email,
             customerName: name,
             customerPhone: phoneNumber,

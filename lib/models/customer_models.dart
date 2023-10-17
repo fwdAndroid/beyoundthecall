@@ -7,6 +7,7 @@ class CustomerModel {
   String customerEmail;
   String uuid;
   var dateofjoin;
+  int numberofvisits;
 
   CustomerModel({
     required this.dateofjoin,
@@ -14,6 +15,7 @@ class CustomerModel {
     required this.customerPhone,
     required this.customerEmail,
     required this.uuid,
+    required this.numberofvisits,
   });
 
   ///Converting OBject into Json Object
@@ -22,7 +24,8 @@ class CustomerModel {
         'customerName': customerName,
         'customerPhone': customerPhone,
         'uuid': uuid,
-        'customerEmail': customerEmail
+        'customerEmail': customerEmail,
+        "numberofvisits": numberofvisits,
       };
 
   ///
@@ -30,11 +33,11 @@ class CustomerModel {
     var snapshot = snaps.data() as Map<String, dynamic>;
 
     return CustomerModel(
-      dateofjoin: snapshot['dateofjoin'],
-      customerName: snapshot['customerName'],
-      customerEmail: snapshot['customerEmail'],
-      customerPhone: snapshot['customerPhone'],
-      uuid: snapshot['uuid'],
-    );
+        dateofjoin: snapshot['dateofjoin'],
+        customerName: snapshot['customerName'],
+        customerEmail: snapshot['customerEmail'],
+        customerPhone: snapshot['customerPhone'],
+        uuid: snapshot['uuid'],
+        numberofvisits: snapshot['numberofvisits']);
   }
 }
