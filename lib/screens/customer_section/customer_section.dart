@@ -1,4 +1,5 @@
 import 'package:beyoundthecall/screens/customer_section/customer_report.dart';
+import 'package:beyoundthecall/screens/customer_section/send_message.dart';
 import 'package:beyoundthecall/screens/customerservice/customer_service.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,10 @@ class _CustomerSectionState extends State<CustomerSection> {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => SendMessage()));
+            },
             leading: Icon(
               Icons.email,
               color: textColor,
