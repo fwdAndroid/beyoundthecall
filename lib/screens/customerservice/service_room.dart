@@ -10,11 +10,13 @@ class ServiceRoom extends StatefulWidget {
   final name;
   final email;
   final uuid;
-  const ServiceRoom(
+  int numberofvisits;
+  ServiceRoom(
       {super.key,
       required this.email,
       required this.name,
       required this.time,
+      required this.numberofvisits,
       required this.uuid});
 
   @override
@@ -71,6 +73,8 @@ class _ServiceRoomState extends State<ServiceRoom> {
                               style: TextStyle(color: serviceColor),
                             ),
                             onPressed: () async {
+                              print(widget.uuid);
+
                               await FirebaseFirestore.instance
                                   .collection("todayappointmnet")
                                   .doc(uuid)
@@ -81,6 +85,7 @@ class _ServiceRoomState extends State<ServiceRoom> {
                                 "timeStamp": FieldValue.serverTimestamp(),
                                 "uuid": uuid
                               });
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -91,6 +96,12 @@ class _ServiceRoomState extends State<ServiceRoom> {
                                 "CLIENT IS SERVED SUCCESSFULLY",
                                 style: TextStyle(color: textColor),
                               )));
+                              //  await FirebaseFirestore.instance
+                              //     .collection("customers")
+                              //     .doc(widget.uuid)
+                              //     .update({
+                              //   "numberofvisits": widget.numberofvisits++
+                              // });
                             },
                           ),
                           TextButton(

@@ -7,7 +7,7 @@ class CustomerModel {
   String customerEmail;
   String uuid;
   var dateofjoin;
-  int numberofvisits;
+  var numberofvisits;
 
   CustomerModel({
     required this.dateofjoin,
