@@ -3,7 +3,6 @@ import 'package:beyoundthecall/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 class ServiceRoom extends StatefulWidget {
   final time;
@@ -24,7 +23,6 @@ class ServiceRoom extends StatefulWidget {
 }
 
 class _ServiceRoomState extends State<ServiceRoom> {
-  var uuid = Uuid().v4();
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   @override
@@ -75,17 +73,6 @@ class _ServiceRoomState extends State<ServiceRoom> {
                             onPressed: () async {
                               print(widget.uuid);
 
-                              await FirebaseFirestore.instance
-                                  .collection("todayappointmnet")
-                                  .doc(uuid)
-                                  .set({
-                                "customerName": widget.name,
-                                "customerEmail": widget.email,
-                                "today": formattedDate,
-                                "timeStamp": FieldValue.serverTimestamp(),
-                                "uuid": uuid
-                              });
-
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -96,11 +83,23 @@ class _ServiceRoomState extends State<ServiceRoom> {
                                 "CLIENT IS SERVED SUCCESSFULLY",
                                 style: TextStyle(color: textColor),
                               )));
-                              //  await FirebaseFirestore.instance
-                              //     .collection("customers")
-                              //     .doc(widget.uuid)
-                              //     .update({
-                              //   "numberofvisits": widget.numberofvisits++
+                              await FirebaseFirestore.instance
+                                  .collection("customers")
+                                  .doc(widget.uuid)
+                                  .update({
+                                "numberofvisits": widget.numberofvisits++,
+                                "status": "SERVICED",
+                                "today": formattedDate,
+                              });
+                              // await FirebaseFirestore.instance
+                              //     .collection("todayappointmnet")
+                              //     .doc(uuid)
+                              //     .set({
+                              //   "customerName": widget.name,
+                              //   "customerEmail": widget.email,
+                              //   "today": formattedDate,
+                              //   "timeStamp": FieldValue.serverTimestamp(),
+                              //   "uuid": uuid
                               // });
                             },
                           ),
