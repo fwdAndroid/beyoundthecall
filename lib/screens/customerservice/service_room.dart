@@ -3,6 +3,7 @@ import 'package:beyoundthecall/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class ServiceRoom extends StatefulWidget {
   final time;
@@ -23,6 +24,7 @@ class ServiceRoom extends StatefulWidget {
 }
 
 class _ServiceRoomState extends State<ServiceRoom> {
+  var uuid = Uuid().v4();
   String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   @override
@@ -74,23 +76,25 @@ class _ServiceRoomState extends State<ServiceRoom> {
                               print(widget.uuid);
 
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => MainScreen()));
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (builder) => MainScreen()))
+                                  .then((value) async {});
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
                                       content: Text(
                                 "CLIENT IS SERVED SUCCESSFULLY",
                                 style: TextStyle(color: textColor),
                               )));
+
                               await FirebaseFirestore.instance
                                   .collection("customers")
                                   .doc(widget.uuid)
                                   .update({
                                 "numberofvisits": widget.numberofvisits++,
-                                "status": "SERVICED",
-                                "today": formattedDate,
+                                "lastVisit": formattedDate
                               });
+
                               // await FirebaseFirestore.instance
                               //     .collection("todayappointmnet")
                               //     .doc(uuid)
@@ -99,7 +103,9 @@ class _ServiceRoomState extends State<ServiceRoom> {
                               //   "customerEmail": widget.email,
                               //   "today": formattedDate,
                               //   "timeStamp": FieldValue.serverTimestamp(),
-                              //   "uuid": uuid
+                              //   "uuid": uuid,
+                              //   "olduid": widget.uuid,
+                              //   "status": "SERVICED",
                               // });
                             },
                           ),

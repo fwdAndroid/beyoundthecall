@@ -1,3 +1,4 @@
+import 'package:beyoundthecall/screens/customer_section/customer_report.dart';
 import 'package:beyoundthecall/screens/customerservice/customer_service.dart';
 import 'package:beyoundthecall/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,10 @@ class _CustomerSectionState extends State<CustomerSection> {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => CustomerReport()));
+            },
             leading: Icon(
               Icons.analytics,
               color: textColor,
